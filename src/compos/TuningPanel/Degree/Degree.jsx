@@ -1,3 +1,5 @@
+import style from "./Degree.module.less";
+
 export default function Degree() {
-    return <div>degree</div>;
+    return <div className={style.degree}>degree</div>;
 }
