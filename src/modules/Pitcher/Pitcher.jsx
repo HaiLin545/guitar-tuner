@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { drawBackground } from "../../utils/draw";
-import { getClosestPitch } from "../../utils/getPitch";
 import PitchMap from "../../assets/pitch.json";
 import "./style.less";
 

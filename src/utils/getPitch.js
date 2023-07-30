@@ -18,6 +18,7 @@ export async function getUserMedia() {
         sampleRate: audioCtx.sampleRate,
     });
     source.connect(analyser);
+    
 
     const getPitch = () => {
         analyser.getFloatTimeDomainData(buffer);
@@ -31,33 +32,33 @@ export async function getUserMedia() {
     return getPitch;
 }
 
-export function getClosestPitch(pitch, targetPitchIdx) {
-    let pitchMap;
-    let target = 0;
-    if (targetPitchIdx != undefined) {
-        pitchMap = PitchMap.filter((p) => targetPitchIdx.includes(p["index"]));
-        let minGap = Infinity;
-        for (let i = 0; i < pitchMap.length; i++) {
-            let gap = Math.abs(PitchMap[targetPitchIdx[i]]["frequency"] - pitch);
-            if (gap < minGap) {
-                minGap = gap;
-                target = targetPitchIdx[i];
-            }
-        }
-    } else {
-        pitchMap = PitchMap;
-        while (target < pitchMap.length && pitchMap[target].frequency < pitch) {
-            target++;
-        }
-        if (target == pitchMap.length) {
-            return pitchMap[target - 1];
-        }
-        if (target > 0 && pitchMap[target].frequency - pitch > pitch - pitchMap[target - 1].frequency) {
-            target--;
-        }
-    }
-    return target;
-}
+// export function getClosestPitch(pitch, targetPitchIdx) {
+//     let pitchMap;
+//     let target = 0;
+//     if (targetPitchIdx != undefined) {
+//         pitchMap = PitchMap.filter((p) => targetPitchIdx.includes(p["index"]));
+//         let minGap = Infinity;
+//         for (let i = 0; i < pitchMap.length; i++) {
+//             let gap = Math.abs(PitchMap[targetPitchIdx[i]]["frequency"] - pitch);
+//             if (gap < minGap) {
+//                 minGap = gap;
+//                 target = targetPitchIdx[i];
+//             }
+//         }
+//     } else {
+//         pitchMap = PitchMap;
+//         while (target < pitchMap.length && pitchMap[target].frequency < pitch) {
+//             target++;
+//         }
+//         if (target == pitchMap.length) {
+//             return pitchMap[target - 1];
+//         }
+//         if (target > 0 && pitchMap[target].frequency - pitch > pitch - pitchMap[target - 1].frequency) {
+//             target--;
+//         }
+//     }
+//     return target;
+// }
 
 export function getPointerLeft(pitch, target) {
     const targetPitch = PitchMap[target]["frequency"];

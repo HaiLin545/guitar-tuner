@@ -1,12 +1,12 @@
 import Degree from "./Degree/Degree";
-import Guitar from "../GuitarWrapper/Guitar";
+import Guitar from "../Guitar/Guitar";
 import style from "./TuningPanel.module.less";
 
-export default function TuningPanel() {
+export default function TuningPanel({ pitch }) {
     return (
         <div className={style.tuningPanel}>
             <Degree />
-            <div className={style.tracker}>tracker</div>
+            <div className={style.tracker}>tracker{pitch}</div>
             <div className={style.mainbox}>
                 <div className="left">left button</div>
                 <Guitar />
