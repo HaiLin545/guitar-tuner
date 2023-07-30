@@ -1,4 +1,4 @@
-import Degree from "./Degree/Degree";
+import Degree from "../Degree/Degree";
 import Guitar from "../Guitar/Guitar";
 import style from "./TuningPanel.module.less";
 

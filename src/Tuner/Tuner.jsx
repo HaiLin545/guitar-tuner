@@ -1,5 +1,5 @@
-import ConfigPanel from "../compos/ConfigPanel/ConfigPanel";
-import TuningPanel from "../compos/TuningPanel/TuningPanel";
+import ConfigPanel from "../modules/ConfigPanel/ConfigPanel";
+import TuningPanel from "../modules/TuningPanel/TuningPanel";
 import style from "./Tuner.module.less";
 import { useEffect } from "react";
 // import { useSelector, useDispatch } from "react-redux";
