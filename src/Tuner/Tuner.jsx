@@ -1,14 +1,18 @@
 import ConfigPanel from '../modules/ConfigPanel/ConfigPanel'
 import TuningPanel from '../modules/TuningPanel/TuningPanel'
 import style from './Tuner.module.less'
-import { useEffect } from 'react'
-// import { useSelector, useDispatch } from "react-redux";
-// import { updatePitch } from "./slice/slice";
+import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { getUserMedia } from '../utils/getPitch'
-import { useState } from 'react'
+import { setPitchList, setPitchModeList } from './slice'
 
 export default function Tuner() {
     const [pitch, setPitch] = useState(0)
+    const pitchList = useSelector(setPitchList)
+    const pitchModeList = useSelector(setPitchModeList)
+
+    const dispatch = useDispatch()
+    console.log('pitchList', pitchList)
     useEffect(() => {
         let interval = 0
         async function initGetPitch() {
@@ -26,8 +30,8 @@ export default function Tuner() {
 
     return (
         <div className={style.tuner}>
-            <ConfigPanel />
-            <TuningPanel pitch={pitch} />
+            <ConfigPanel pitchModeList={pitchModeList} />
+            <TuningPanel pitchList={pitchList} />
         </div>
     )
 }

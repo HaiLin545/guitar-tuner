@@ -1,5 +1,5 @@
 import { Provider } from 'react-redux'
-import store from './Tuner/store/store'
+import store from './Tuner/store'
 import Tuner from './Tuner/Tuner'
 import { StrictMode } from 'react'
 

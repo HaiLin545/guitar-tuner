@@ -2,42 +2,41 @@ import { useState } from 'react'
 import Degree from '../Degree/Degree'
 import Guitar from '../Guitar/Guitar'
 import style from './TuningPanel.module.less'
-import { useSelector, useDispatch } from 'react-redux'
-import { updatePitchList, patchList } from './slice'
 import classnames from 'classnames'
 
-export default function TuningPanel({ pitch }) {
-    const pitchList = useSelector(patchList)
-    const dispatch = useDispatch()
+export default function TuningPanel({ pitchList }) {
+    console.log('tuning panel pitchlist', pitchList)
+    const renderPitchName = (pitch, number) => {
+        return (
+            <div className={style.pitchName}>
+                {pitch}
+                <sub>{number}</sub>
+            </div>
+        )
+    }
 
-    const renderSinglePitch = (name, state) => {
-        if (state == 0) {
-            return <div className={classnames(style.singlePitch)}>{name}</div>
-        } else if (state == 1) {
-            return (
-                <div className={classnames(style.singlePitch, style.tuning)}>
-                    {name}
-                </div>
-            )
-        } else if (state == 2) {
-            return (
-                <div className={classnames(style.singlePitch, style.finished)}>
-                    {name}
-                </div>
-            )
-        }
+    const renderSinglePitch = (p) => {
+        return (
+            <div
+                className={classnames(
+                    style.singlePitch,
+                    p.state == 0
+                        ? ''
+                        : p.state == 1
+                        ? style.tuning
+                        : style.finished,
+                )}
+            >
+                {renderPitchName(p.pitch, p.number)}
+            </div>
+        )
     }
 
     const renderLeft = () => {
         return (
             <div className={classnames(style.leftList, style.pitchList)}>
                 {pitchList.slice(0, 3).map((p) => {
-                    console.log('render', p.pitch)
-                    return (
-                        <div key={p.pitch}>
-                            {renderSinglePitch(p.name, p.state)}
-                        </div>
-                    )
+                    return <div key={p.index}>{renderSinglePitch(p)}</div>
                 })}
             </div>
         )
@@ -47,12 +46,7 @@ export default function TuningPanel({ pitch }) {
         return (
             <div className={classnames(style.rightList, style.pitchList)}>
                 {pitchList.slice(3).map((p) => {
-                    console.log('render', p.pitch)
-                    return (
-                        <div key={p.pitch}>
-                            {renderSinglePitch(p.name, p.state)}
-                        </div>
-                    )
+                    return <div key={p.index}>{renderSinglePitch(p)}</div>
                 })}
             </div>
         )
@@ -61,7 +55,7 @@ export default function TuningPanel({ pitch }) {
     return (
         <div className={style.tuningPanel}>
             <Degree />
-            <div className={style.tracker}>tracker{pitch}</div>
+            <div className={style.tracker}>tracker</div>
             <div className={style.mainbox}>
                 <div className={style.left}>{renderLeft()}</div>
                 <Guitar />

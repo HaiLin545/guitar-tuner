@@ -1,7 +1,7 @@
 .configPanel {
     border-right: 2px solid white;
     padding: 5px;
-    width: 300px;
+    width: 400px;
 }
 
 .appName {
@@ -12,8 +12,43 @@
     letter-spacing: 4px;
 }
 
+.configList {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: blue;
+}
+
 .autoDetect {
+    margin: 30px 0;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.pitchModeGroup {
+    flex: 1;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .pitchMode {
+        width: 200px;
+        margin: 10px 0;
+        padding: 10px;
+        text-align: center;
+        background-color: #ffe5cc;
+
+        .modeName {
+            padding: 10px 0;
+            border-bottom: 1px solid black;
+        }
+
+        .pitchNameList {
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-evenly;
+        }
+    }
 }
