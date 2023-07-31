@@ -1,36 +1,62 @@
-import style from "./GuitarSVG.module.less";
+import style from './GuitarSVG.module.less'
 
 const theme = {
     // bgColor: "#FFFFFF",
-    titleColor: "#3D3D3D",
-    txtColor: "pink",
+    titleColor: '#3D3D3D',
+    txtColor: 'pink',
 
-    headColor: "#D8D8D8",
-    boardColor: "#D7A676",
-    pillowCOlor: "#E2D1C1",
+    headColor: '#D8D8D8',
+    boardColor: '#D7A676',
+    pillowCOlor: '#E2D1C1',
 
-    cycleOutlineColor: "#D7A676",
-    cycleInterColor: "#E2D1C1",
+    cycleOutlineColor: '#D7A676',
+    cycleInterColor: '#E2D1C1',
 
-    btnColor: ["#E2D1C1", "#E2D1C1", "#E2D1C1", "#E2D1C1", "#E2D1C1", "#E2D1C1"],
-    stringColor: ["#FFC300", "#FFC300", "#FFC300", "#FFC300", "#FFC300", "#FFC300"],
-};
+    btnColor: [
+        '#E2D1C1',
+        '#E2D1C1',
+        '#E2D1C1',
+        '#E2D1C1',
+        '#E2D1C1',
+        '#E2D1C1',
+    ],
+    stringColor: [
+        '#FFC300',
+        '#FFC300',
+        '#FFC300',
+        '#FFC300',
+        '#FFC300',
+        '#FFC300',
+    ],
+}
 
-const headTitle = "Guitar";
-const headText = "tunner";
+const headTitle = 'Guitar'
+const headText = 'tunner'
 
 const renderTitle = () => {
     return (
         <g className="title">
-            <text x="50%" y="80" fill={theme.titleColor} fontSize="30" textAnchor="middle">
+            <text
+                x="50%"
+                y="80"
+                fill={theme.titleColor}
+                fontSize="30"
+                textAnchor="middle"
+            >
                 {headTitle}
             </text>
-            <text x="50%" y="110" fill={theme.txtColor} fontSize="18" textAnchor="middle">
+            <text
+                x="50%"
+                y="110"
+                fill={theme.txtColor}
+                fontSize="18"
+                textAnchor="middle"
+            >
                 {headText}
             </text>
         </g>
-    );
-};
+    )
+}
 
 const renderButtons = () => {
     return (
@@ -78,8 +104,8 @@ const renderButtons = () => {
                 />
             </g>
         </g>
-    );
-};
+    )
+}
 
 const renderCycleOutline = () => {
     return (
@@ -145,8 +171,8 @@ const renderCycleOutline = () => {
                 />
             </g>
         </g>
-    );
-};
+    )
+}
 
 const renderCycleInter = () => {
     return (
@@ -212,8 +238,8 @@ const renderCycleInter = () => {
                 />
             </g>
         </g>
-    );
-};
+    )
+}
 
 const renderStrings = () => {
     return (
@@ -222,7 +248,7 @@ const renderStrings = () => {
                 <g transform="matrix(0,0.9999546408653259,-0.9999546408653259,0,690.9779101014137,283.0092532634735)">
                     <line
                         onClick={() => {
-                            console.log("click string 5");
+                            console.log('click string 5')
                         }}
                         className={style.string}
                         x1="204"
@@ -389,9 +415,8 @@ const renderStrings = () => {
                 <g transform="matrix(0.0325034074485302,0.999462902545929,-0.9994629621505737,0.0325034037232399,469.2935836548653,245.19429466724432)">
                     <line
                         onClick={() => {
-                            console.log("click string 5");
+                            console.log('click string 5')
                         }}
-                       
                         className={style.string}
                         x1="107.99996948242188"
                         y1="364.89999997615814"
@@ -406,14 +431,14 @@ const renderStrings = () => {
                 </g>
             </g>
         </g>
-    );
-};
+    )
+}
 
 export default function GuitarSVG() {
-    const svgHeight = 600;
-    const svgWidth = 320;
+    const svgHeight = 600
+    const svgWidth = 320
     return (
-        <div className={style["svg-wrapper"]}>
+        <div className={style['svg-wrapper']}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -446,8 +471,17 @@ export default function GuitarSVG() {
                             type="matrix"
                             values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3019607961177826 0"
                         />
-                        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
-                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
+                        <feBlend
+                            mode="normal"
+                            in2="BackgroundImageFix"
+                            result="effect1_dropShadow"
+                        />
+                        <feBlend
+                            mode="normal"
+                            in="SourceGraphic"
+                            in2="effect1_dropShadow"
+                            result="shape"
+                        />
                     </filter>
                 </defs>
                 <g>
@@ -509,5 +543,5 @@ export default function GuitarSVG() {
                 </g>
             </svg>
         </div>
-    );
+    )
 }

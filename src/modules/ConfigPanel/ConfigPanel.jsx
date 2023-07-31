@@ -1,7 +1,7 @@
-import style from "./ConfigPanel.module.less";
-import Switch from "@mui/material/Switch";
+import style from './ConfigPanel.module.less'
+import Switch from '@mui/material/Switch'
 
-const appName = "Tuner";
+const appName = 'Tuner'
 
 export default function ConfigPanel() {
     return (
@@ -14,5 +14,5 @@ export default function ConfigPanel() {
                 </div>
             </div>
         </div>
-    );
+    )
 }

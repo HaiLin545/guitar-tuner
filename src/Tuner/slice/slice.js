@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
 export const counterSlice = createSlice({
     name: 'pitch',
@@ -10,9 +10,9 @@ export const counterSlice = createSlice({
         //     state.pitchValue = action.payload;
         // }
     },
-});
+})
 
 // 为每个 case reducer 函数生成 Action creators
-export const { update } = counterSlice.actions;
+export const { update } = counterSlice.actions
 
-export default counterSlice.reducer;
+export default counterSlice.reducer

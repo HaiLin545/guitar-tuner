@@ -1,6 +1,6 @@
-import Degree from "../Degree/Degree";
-import Guitar from "../Guitar/Guitar";
-import style from "./TuningPanel.module.less";
+import Degree from '../Degree/Degree'
+import Guitar from '../Guitar/Guitar'
+import style from './TuningPanel.module.less'
 
 export default function TuningPanel({ pitch }) {
     return (
@@ -13,5 +13,5 @@ export default function TuningPanel({ pitch }) {
                 <div className="right">right button</div>
             </div>
         </div>
-    );
+    )
 }
