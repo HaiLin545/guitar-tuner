@@ -39,6 +39,9 @@ devDependencies:
   '@vitejs/plugin-react':
     specifier: ^3.0.0
     version: 3.1.0(vite@4.4.7)
+  classnames:
+    specifier: ^2.3.2
+    version: 2.3.2
   less:
     specifier: ^4.1.3
     version: 4.1.3
@@ -910,6 +913,10 @@ packages:
       ansi-styles: 3.2.1
       escape-string-regexp: 1.0.5
       supports-color: 5.5.0
+
+  /classnames@2.3.2:
+    resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}
+    dev: true
 
   /clsx@1.2.1:
     resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}

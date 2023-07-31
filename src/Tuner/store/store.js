@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-// import pitchReducer from "../slice/slice";
+import tunerReducer from '../../modules/TuningPanel/slice'
 
 export default configureStore({
     reducer: {
-        // pitch: pitchReducer,
+        tuner: tunerReducer,
     },
 })

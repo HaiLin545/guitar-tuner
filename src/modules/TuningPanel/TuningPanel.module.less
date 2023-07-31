@@ -17,5 +17,39 @@
     width: 100%;
     display: flex;
     background-color: chocolate;
-    justify-content: space-evenly;
+    justify-content: center;
+}
+
+.left {
+    // display: flex;
+    // justify-content: flex-end;
+}
+
+.pitchList {
+    height: 84%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@pitch-size: 50px;
+.singlePitch {
+    width: @pitch-size;
+    height: @pitch-size;
+    text-align: center;
+    line-height: @pitch-size;
+    border-radius: @pitch-size;
+    background-color: pink;
+    margin: 40px 0;
+    cursor: pointer;
+    &.tuning {
+        background-color: orange;
+    }
+    &.finished {
+        background-color: greenyellow;
+    }
+}
+
+.leftList {
+    flex-direction: column-reverse;
 }

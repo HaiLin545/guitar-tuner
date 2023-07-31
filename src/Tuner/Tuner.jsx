@@ -18,7 +18,7 @@ export default function Tuner() {
                 setPitch(getPitch())
             }, 50)
         }
-        initGetPitch()
+        // initGetPitch()
         return () => {
             clearInterval(interval)
         }
