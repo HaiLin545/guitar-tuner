@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import Degree from '../Degree/Degree'
+import Dial from '../Dial/Dial'
 import Guitar from '../Guitar/Guitar'
 import style from './TuningPanel.module.less'
 import classnames from 'classnames'
@@ -40,7 +40,7 @@ export default function TuningPanel() {
                 })}
             </div>
         )
-    }, pitchList) 
+    }, pitchList)
 
     const renderRight = useMemo(() => {
         console.log('render right')
@@ -55,12 +55,18 @@ export default function TuningPanel() {
 
     return (
         <div className={style.tuningPanel}>
-            <Degree />
-            <div className={style.tracker}>tracker{pitchValue}</div>
+            <Dial />
+            <div className={style.dynamic}>
+                <div className={style.pointer}>
+                    <div className={style.triangle}></div>
+                    <div className={style.tail}></div>
+                </div>
+            </div>
             <div className={style.mainbox}>
                 <div className={style.left}>{renderLeft}</div>
                 <Guitar />
                 <div className={style.right}>{renderRight}</div>
+                <div className={style.frequency}>{pitchValue}</div>
             </div>
         </div>
     )

@@ -7,10 +7,30 @@
     justify-content: space-between;
 }
 
-.tracker {
+.dynamic {
     flex: 1;
     min-height: 100px;
     background-color: violet;
+    position: relative;
+    .pointer {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        width: fit-content;
+        .triangle {
+            width: 0;
+            height: 0;
+            border: 12px solid;
+            border-color: transparent;
+            border-bottom-color: green;
+        }
+        // .tail {
+        //     width: 100%;
+        //     height: 20px;
+        //     background-color: yellow;
+        // }
+    }
 }
 
 .mainbox {
@@ -18,6 +38,15 @@
     display: flex;
     background-color: chocolate;
     justify-content: center;
+    position: relative;
+    .frequency{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        text-align: center;
+        padding: 10px 30px;
+        background-color: red;
+    }
 }
 
 .left {
