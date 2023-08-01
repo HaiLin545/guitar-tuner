@@ -5,10 +5,8 @@ import { StrictMode } from 'react'
 
 export default function App() {
     return (
-        <StrictMode>
-            <Provider store={store}>
-                <Tuner />
-            </Provider>
-        </StrictMode>
+        <Provider store={store}>
+            <Tuner />
+        </Provider>
     )
 }

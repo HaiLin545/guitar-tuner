@@ -1,21 +1,17 @@
-import { useState } from 'react'
+import { useMemo } from 'react'
 import Degree from '../Degree/Degree'
 import Guitar from '../Guitar/Guitar'
 import style from './TuningPanel.module.less'
 import classnames from 'classnames'
+import { setPitchList, setPitchValue } from '../../Tuner/slice'
+import { useSelector } from 'react-redux'
 
-export default function TuningPanel({ pitchList }) {
-    console.log('tuning panel pitchlist', pitchList)
-    const renderPitchName = (pitch, number) => {
-        return (
-            <div className={style.pitchName}>
-                {pitch}
-                <sub>{number}</sub>
-            </div>
-        )
-    }
+export default function TuningPanel() {
+    const pitchList = useSelector(setPitchList)
+    const pitchValue = useSelector(setPitchValue)
 
     const renderSinglePitch = (p) => {
+        console.log('render single pitch')
         return (
             <div
                 className={classnames(
@@ -27,12 +23,16 @@ export default function TuningPanel({ pitchList }) {
                         : style.finished,
                 )}
             >
-                {renderPitchName(p.pitch, p.number)}
+                <div className={style.pitchName}>
+                    {p.pitch}
+                    <sub>{p.number}</sub>
+                </div>
             </div>
         )
     }
 
-    const renderLeft = () => {
+    const renderLeft = useMemo(() => {
+        console.log('render left')
         return (
             <div className={classnames(style.leftList, style.pitchList)}>
                 {pitchList.slice(0, 3).map((p) => {
@@ -40,9 +40,10 @@ export default function TuningPanel({ pitchList }) {
                 })}
             </div>
         )
-    }
+    }, pitchList) 
 
-    const renderRight = () => {
+    const renderRight = useMemo(() => {
+        console.log('render right')
         return (
             <div className={classnames(style.rightList, style.pitchList)}>
                 {pitchList.slice(3).map((p) => {
@@ -50,16 +51,16 @@ export default function TuningPanel({ pitchList }) {
                 })}
             </div>
         )
-    }
+    }, pitchList)
 
     return (
         <div className={style.tuningPanel}>
             <Degree />
-            <div className={style.tracker}>tracker</div>
+            <div className={style.tracker}>tracker{pitchValue}</div>
             <div className={style.mainbox}>
-                <div className={style.left}>{renderLeft()}</div>
+                <div className={style.left}>{renderLeft}</div>
                 <Guitar />
-                <div className={style.right}>{renderRight()}</div>
+                <div className={style.right}>{renderRight}</div>
             </div>
         </div>
     )
