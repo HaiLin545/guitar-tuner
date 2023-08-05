@@ -1,85 +1,85 @@
 .tuningPanel {
-    width: 100%;
-    height: 100%;
-    background-color: #ccc;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+	width: 100%;
+	height: 100%;
+	background-color: #ccc;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 .dynamic {
-    flex: 1;
-    min-height: 100px;
-    background-color: violet;
-    position: relative;
-    .pointer {
-        position: absolute;
-        top: 5px;
-        left: 50%;
-        transform: translateX(-50%) translateY(-50%);
-        width: fit-content;
-        .triangle {
-            width: 0;
-            height: 0;
-            border: 12px solid;
-            border-color: transparent;
-            border-bottom-color: green;
-        }
-        // .tail {
-        //     width: 100%;
-        //     height: 20px;
-        //     background-color: yellow;
-        // }
-    }
+	flex: 1;
+	min-height: 100px;
+	background-color: violet;
+	position: relative;
+	.pointer {
+		position: absolute;
+		top: 5px;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+		width: fit-content;
+		.triangle {
+			width: 0;
+			height: 0;
+			border: 12px solid;
+			border-color: transparent;
+			border-bottom-color: green;
+		}
+		// .tail {
+		//     width: 100%;
+		//     height: 20px;
+		//     background-color: yellow;
+		// }
+	}
 }
 
 .mainbox {
-    width: 100%;
-    display: flex;
-    background-color: chocolate;
-    justify-content: center;
-    position: relative;
-    .frequency{
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        text-align: center;
-        padding: 10px 0;
-        width: 100px;
-        background-color: white
-    }
+	width: 100%;
+	display: flex;
+	background-color: chocolate;
+	justify-content: center;
+	position: relative;
+	.frequency {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		text-align: center;
+		padding: 10px 0;
+		width: 100px;
+		background-color: white;
+	}
 }
 
 .left {
-    // display: flex;
-    // justify-content: flex-end;
+	// display: flex;
+	// justify-content: flex-end;
 }
 
 .pitchList {
-    height: 84%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+	height: 84%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 @pitch-size: 70px;
 .singlePitch {
-    width: @pitch-size;
-    height: @pitch-size;
-    text-align: center;
-    line-height: @pitch-size;
-    border-radius: @pitch-size;
-    background-color: pink;
-    margin: 40px 0;
-    cursor: pointer;
-    &.tuning {
-        background-color: orange;
-    }
-    &.finished {
-        background-color: greenyellow;
-    }
+	width: @pitch-size;
+	height: @pitch-size;
+	text-align: center;
+	line-height: @pitch-size;
+	border-radius: @pitch-size;
+	background-color: pink;
+	margin: 40px 0;
+	cursor: pointer;
+	&.tuning {
+		background-color: orange;
+	}
+	&.finished {
+		background-color: greenyellow;
+	}
 }
 
 .leftList {
-    flex-direction: column-reverse;
+	flex-direction: column-reverse;
 }
