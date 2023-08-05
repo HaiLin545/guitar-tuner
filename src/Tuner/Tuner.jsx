@@ -2,9 +2,9 @@ import ConfigPanel from '../modules/ConfigPanel/ConfigPanel'
 import TuningPanel from '../modules/TuningPanel/TuningPanel'
 import style from './Tuner.module.less'
 import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getUserMedia } from '../utils/getPitch'
-import { setPitchModeList, updatePitchValue } from './slice'
+import { updatePitchValue } from '../modules/TuningPanel/tunerSlice'
 import { stablePitch } from '../utils/tools'
 
 export default function Tuner() {
@@ -17,7 +17,7 @@ export default function Tuner() {
             let newPitch = 0
             interval = setInterval(() => {
                 newPitch = stablePitch(getPitch())
-                dispatch(updatePitchValue(newPitch))
+                dispatch(updatePitchValue({ pitchValue: newPitch }))
             }, 1000)
         }
         initGetPitch()

@@ -1,27 +1,49 @@
-import { useMemo } from 'react'
+import { useMemo, useEffect } from 'react'
 import Dial from '../Dial/Dial'
 import Guitar from '../Guitar/Guitar'
 import style from './TuningPanel.module.less'
 import classnames from 'classnames'
-import { setPitchList, setPitchValue } from '../../Tuner/slice'
-import { useSelector } from 'react-redux'
+import {
+    setPitchList,
+    setPitchValue,
+    setActiveStringIndex,
+    updateActiveStringIndex,
+    updateStringState,
+} from './tunerSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { isFreqEqual } from '../../utils/tools'
 
 export default function TuningPanel() {
     const pitchList = useSelector(setPitchList)
     const pitchValue = useSelector(setPitchValue)
+    const activeStringIndex = useSelector(setActiveStringIndex)
+    const dispatch = useDispatch()
 
-    const renderSinglePitch = (p) => {
+    useEffect(() => {
+        const targetFreq = pitchList[activeStringIndex].frequency
+        if (isFreqEqual(targetFreq, pitchValue)) {
+            dispatch(updateStringState({ newState: 1 }))
+        } else if (!isFreqEqual(targetFreq, 0)) {
+            dispatch(updateStringState({ newState: 0 }))
+        }
+    }, [pitchValue])
+
+    const renderSinglePitch = (p, stringIndex) => {
         console.log('render single pitch')
         return (
             <div
                 className={classnames(
                     style.singlePitch,
-                    p.state == 0
-                        ? ''
-                        : p.state == 1
-                        ? style.tuning
-                        : style.finished,
+                    activeStringIndex == stringIndex ? style.tuning : '',
+                    p.state == 0 ? style.empty : style.finished
                 )}
+                onClick={() =>
+                    dispatch(
+                        updateActiveStringIndex({
+                            activeStringIndex: stringIndex,
+                        })
+                    )
+                }
             >
                 <div className={style.pitchName}>
                     {p.pitch}
@@ -35,23 +57,25 @@ export default function TuningPanel() {
         console.log('render left')
         return (
             <div className={classnames(style.leftList, style.pitchList)}>
-                {pitchList.slice(0, 3).map((p) => {
-                    return <div key={p.index}>{renderSinglePitch(p)}</div>
+                {pitchList.slice(0, 3).map((p, idx) => {
+                    return <div key={p.index}>{renderSinglePitch(p, idx)}</div>
                 })}
             </div>
         )
-    }, pitchList)
+    }, [pitchList, activeStringIndex])
 
     const renderRight = useMemo(() => {
         console.log('render right')
         return (
             <div className={classnames(style.rightList, style.pitchList)}>
-                {pitchList.slice(3).map((p) => {
-                    return <div key={p.index}>{renderSinglePitch(p)}</div>
+                {pitchList.slice(3).map((p, idx) => {
+                    return (
+                        <div key={p.index}>{renderSinglePitch(p, idx + 3)}</div>
+                    )
                 })}
             </div>
         )
-    }, pitchList)
+    }, [pitchList, activeStringIndex])
 
     return (
         <div className={style.tuningPanel}>

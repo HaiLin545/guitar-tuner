@@ -2,7 +2,7 @@ const defaultPitchMode = [
     {
         id: 0,
         modeName: '标准调弦',
-        pitchIndexList: [64, 69, 74, 79, 83, 88],
+        pitchIndexList: [40, 45, 50, 55, 59, 64],
     },
     {
         id: 1,

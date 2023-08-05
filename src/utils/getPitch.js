@@ -1,4 +1,5 @@
 import Pitchfinder from 'pitchfinder'
+import { fixed } from './tools'
 
 const constraint = {
     audio: true,
@@ -22,9 +23,10 @@ export async function getUserMedia() {
         analyser.getFloatTimeDomainData(buffer)
         console.log('getPitch')
         const start = Date.now()
-        const pitch = detectPitch(buffer) ?? 0
+        let pitch = detectPitch(buffer) ?? 0
         const end = Date.now()
         console.log('pitch = ', pitch, 'get pitch time: ', end - start, 'ms')
+        pitch = fixed(pitch, 2)
         return pitch
     }
     return getPitch

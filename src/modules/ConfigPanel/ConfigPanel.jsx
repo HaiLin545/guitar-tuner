@@ -3,7 +3,7 @@ import Switch from '@mui/material/Switch'
 import { transformIndexToPitch } from '../../utils/tools'
 import { Button } from '@mui/material'
 import SettingIcon from '@mui/icons-material/Settings'
-import { setPitchModeList } from '../../Tuner/slice'
+import { setPitchModeList } from './configSlice'
 import { useSelector } from 'react-redux'
 import { useMemo } from 'react'
 
@@ -33,7 +33,6 @@ export default function ConfigPanel() {
         console.log('render pitch mode group')
         return (
             <div className={style.pitchModeGroup}>
-                {pitchModeList.map((p) => renderMode(p))}
                 {pitchModeList.map((p) => renderMode(p))}
             </div>
         )
