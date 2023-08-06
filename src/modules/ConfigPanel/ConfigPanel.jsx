@@ -3,19 +3,42 @@ import Switch from "@mui/material/Switch";
 import { transformIndexToPitch } from "../../utils/tools";
 import { Button } from "@mui/material";
 import SettingIcon from "@mui/icons-material/Settings";
-import { setPitchModeList } from "./configSlice";
-import { useSelector } from "react-redux";
-import { useMemo } from "react";
+import {
+	setPitchModeList,
+	setCurrentModeIndex,
+	changeMode,
+} from "./configSlice";
+import { updatePitchList } from "../TuningPanel/tunerSlice";
+import { useSelector, useDispatch } from "react-redux";
+import React, { useMemo } from "react";
+import classNames from "classnames";
 
 const appName = "Tuner";
 
 export default function ConfigPanel() {
 	const pitchModeList = useSelector(setPitchModeList);
+	const currentModeIndex = useSelector(setCurrentModeIndex);
+	const dispatch = useDispatch();
 
-	const renderMode = (pitchMode) => {
+	const dispatchChangeMode = (idx) => {
+		console.log("dispatch changeMode", idx);
+		if (idx !== currentModeIndex) {
+			dispatch(changeMode({ modeIndex: idx }));
+			dispatch(updatePitchList({ pitchList: pitchModeList[idx] }));
+		}
+	};
+
+	const renderMode = (pitchMode, idx) => {
 		const pitchList = transformIndexToPitch(pitchMode);
 		return (
-			<div className={style.pitchMode} key={pitchMode.id}>
+			<div
+				className={classNames(
+					style.pitchMode,
+					currentModeIndex === idx && style.active,
+				)}
+				key={pitchMode.id}
+				onClick={() => dispatchChangeMode(idx)}
+			>
 				<div className={style.modeName}>{pitchMode.modeName}</div>
 				<div className={style.pitchNameList}>
 					{pitchList.map((p) => (
@@ -33,10 +56,10 @@ export default function ConfigPanel() {
 		console.log("render pitch mode group");
 		return (
 			<div className={style.pitchModeGroup}>
-				{pitchModeList.map((p) => renderMode(p))}
+				{pitchModeList.map((p, idx) => renderMode(p, idx))}
 			</div>
 		);
-	}, pitchModeList);
+	}, [pitchModeList, currentModeIndex]);
 
 	return (
 		<div className={style.configPanel}>

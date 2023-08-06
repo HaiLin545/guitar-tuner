@@ -1,15 +1,9 @@
 import allPitch from "../data/allPitch";
 
-const eps = 1.5;
-
-export const isFreqEqual = (a, b) => {
-	console.log("diff", Math.abs(a - b));
-	return Math.abs(a - b) <= eps;
-};
-
-export const getPitchListWithState = (modeList, index) => {
-	return modeList[index].pitchIndexList.map((idx) => ({
+export const getPitchListWithState = (pitchMode) => {
+	return pitchMode.pitchIndexList.map((idx) => ({
 		...allPitch[idx],
+		frequency: fixed(allPitch[idx].frequency, 1),
 		state: 0,
 	}));
 };
@@ -39,3 +33,5 @@ export const stablePitch = (function () {
 })();
 
 export const fixed = (num, bit) => Number(num.toFixed(bit));
+
+export const sigmoid = (t) => 1 / (1 + Math.exp(-t / 66));

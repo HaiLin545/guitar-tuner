@@ -1,3 +1,4 @@
+import React from "react";
 import ConfigPanel from "../modules/ConfigPanel/ConfigPanel";
 import TuningPanel from "../modules/TuningPanel/TuningPanel";
 import style from "./Tuner.module.less";
@@ -18,7 +19,7 @@ export default function Tuner() {
 			interval = setInterval(() => {
 				newPitch = stablePitch(getPitch());
 				dispatch(updatePitchValue({ pitchValue: newPitch }));
-			}, 1000);
+			}, 80);
 		}
 		initGetPitch();
 		return () => {

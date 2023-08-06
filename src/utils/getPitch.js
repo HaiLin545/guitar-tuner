@@ -26,7 +26,7 @@ export async function getUserMedia() {
 		let pitch = detectPitch(buffer) ?? 0;
 		const end = Date.now();
 		console.log("pitch = ", pitch, "get pitch time: ", end - start, "ms");
-		pitch = fixed(pitch, 2);
+		pitch = fixed(pitch, 1);
 		return pitch;
 	};
 	return getPitch;

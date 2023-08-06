@@ -9,7 +9,8 @@ export const counterSlice = createSlice({
 	},
 	reducers: {
 		changeMode: (state, action) => {
-			state.currentModeIndex = action.payload.newModeIndex;
+			console.log(action);
+			state.currentModeIndex = action.payload.modeIndex;
 		},
 		deleteMode: (state, action) => {},
 		updateMode: (state, action) => {},
@@ -18,6 +19,7 @@ export const counterSlice = createSlice({
 });
 
 export const setPitchModeList = (state) => state.config.pitchModeList;
+export const setCurrentModeIndex = (state) => state.config.currentModeIndex;
 
 // 为每个 case reducer 函数生成 Action creators
 export const { changeMode, addMode, updateMode, deleteMode } =

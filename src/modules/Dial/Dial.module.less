@@ -28,6 +28,14 @@
 		left: 50%;
 		transform: translateX(-50%);
 		font-size: 26px;
+		text-align: center;
+		.frequency {
+			font-size: 16px;
+		}
+
+		&.accuracy {
+			color: green;
+		}
 	}
 	.bg {
 		display: flex;
@@ -43,8 +51,35 @@
 
 		.l {
 			width: 2px;
-			height: 30px;
+			height: 10px;
 			background-color: grey;
 		}
+	}
+}
+
+.dynamic {
+	flex: 1;
+	min-height: 100px;
+	background-color: violet;
+	position: relative;
+	.pointer {
+		position: absolute;
+		top: 5px;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+		transition: all ease-in 200ms;
+		width: fit-content;
+		.triangle {
+			width: 0;
+			height: 0;
+			border: 12px solid;
+			border-color: transparent;
+			border-bottom-color: green;
+		}
+		// .tail {
+		//     width: 100%;
+		//     height: 20px;
+		//     background-color: yellow;
+		// }
 	}
 }

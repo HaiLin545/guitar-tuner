@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import defaultPitchMode from "../../data/defaultPitchMode";
 import { getPitchListWithState } from "../../utils/tools";
 
-const defaultPitchList = getPitchListWithState(defaultPitchMode, 0);
+const defaultPitchList = getPitchListWithState(defaultPitchMode[0]);
 
 export const counterSlice = createSlice({
 	name: "tuner",
@@ -13,7 +13,7 @@ export const counterSlice = createSlice({
 	},
 	reducers: {
 		updatePitchList: (state, action) => {
-			state.pitchList = action.payload.pitchList;
+			state.pitchList = getPitchListWithState(action.payload.pitchList);
 		},
 		updatePitchValue: (state, action) => {
 			console.log("update pitch value", action);

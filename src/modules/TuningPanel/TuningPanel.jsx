@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import Dial from "../Dial/Dial";
 import Guitar from "../Guitar/Guitar";
 import style from "./TuningPanel.module.less";
@@ -8,25 +8,14 @@ import {
 	setPitchValue,
 	setActiveStringIndex,
 	updateActiveStringIndex,
-	updateStringState,
 } from "./tunerSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { isFreqEqual } from "../../utils/tools";
 
 export default function TuningPanel() {
 	const pitchList = useSelector(setPitchList);
 	const pitchValue = useSelector(setPitchValue);
 	const activeStringIndex = useSelector(setActiveStringIndex);
 	const dispatch = useDispatch();
-
-	useEffect(() => {
-		const targetFreq = pitchList[activeStringIndex].frequency;
-		if (isFreqEqual(targetFreq, pitchValue)) {
-			dispatch(updateStringState({ newState: 1 }));
-		} else if (!isFreqEqual(targetFreq, 0)) {
-			dispatch(updateStringState({ newState: 0 }));
-		}
-	}, [pitchValue]);
 
 	const renderSinglePitch = (p, stringIndex) => {
 		console.log("render single pitch");
@@ -35,13 +24,13 @@ export default function TuningPanel() {
 				className={classnames(
 					style.singlePitch,
 					activeStringIndex == stringIndex ? style.tuning : "",
-					p.state == 0 ? style.empty : style.finished
+					p.state == 0 ? style.empty : style.finished,
 				)}
 				onClick={() =>
 					dispatch(
 						updateActiveStringIndex({
 							activeStringIndex: stringIndex,
-						})
+						}),
 					)
 				}
 			>
@@ -79,18 +68,16 @@ export default function TuningPanel() {
 
 	return (
 		<div className={style.tuningPanel}>
-			<Dial />
-			<div className={style.dynamic}>
-				<div className={style.pointer}>
-					<div className={style.triangle}></div>
-					<div className={style.tail}></div>
-				</div>
-			</div>
+			<Dial
+				pitchList={pitchList}
+				pitchValue={pitchValue}
+				activeStringIndex={activeStringIndex}
+			/>
 			<div className={style.mainbox}>
 				<div className={style.left}>{renderLeft}</div>
 				<Guitar />
 				<div className={style.right}>{renderRight}</div>
-				<div className={style.frequency}>{pitchValue}</div>
+				<div className={style.frequency}>{pitchValue} Hz</div>
 			</div>
 		</div>
 	);

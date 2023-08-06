@@ -4,7 +4,7 @@ module.exports = {
 		es2021: true,
 	},
 	extends: ["eslint:recommended", "plugin:react/recommended"],
-	ignorePatterns: ["**/*.json"],
+	ignorePatterns: ["**/*.json", "**/*.less"],
 	overrides: [
 		{
 			env: {
@@ -31,5 +31,6 @@ module.exports = {
 		quotes: ["warn", "double"],
 		semi: ["warn", "always"],
 		"no-unused-vars": 1,
+		"react/prop-types": 0,
 	},
 };
