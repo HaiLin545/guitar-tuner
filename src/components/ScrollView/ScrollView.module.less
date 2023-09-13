@@ -1,0 +1,47 @@
+.scrollView {
+	margin: 10px 0;
+	width: 100%;
+	box-sizing: border-box;
+	position: relative;
+}
+
+.pitchList {
+	display: flex;
+	overflow-x: auto;
+	.pitchItem {
+		cursor: pointer;
+		border: 1px solid black;
+		padding: 20px;
+		background-color: aquamarine;
+		flex-shrink: 0;
+		text-align: center;
+		width: 14.28%;
+		.frequency {
+			font-size: 20px;
+		}
+
+		.pitchName {
+			font-size: 24px;
+			margin: 10px 0;
+		}
+	}
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+.backIcon,
+.forwardIcon {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: #eee;
+}
+
+.backIcon {
+	left: 5px;
+}
+
+.forwardIcon {
+	right: 5px;
+}

@@ -9,12 +9,17 @@ import {
 	setActiveStringIndex,
 	updateActiveStringIndex,
 } from "./tunerSlice";
+import { setIsSetting, setIsEditing } from "../ConfigPanel/configSlice";
 import { useSelector, useDispatch } from "react-redux";
+import TunerIntro from "./TunerIntro/TunerIntro";
+import EditTuner from "./EditTuner/EditTuner";
 
 export default function TuningPanel() {
 	const pitchList = useSelector(setPitchList);
 	const pitchValue = useSelector(setPitchValue);
 	const activeStringIndex = useSelector(setActiveStringIndex);
+	const isSetting = useSelector(setIsSetting);
+	const isEditing = useSelector(setIsEditing);
 	const dispatch = useDispatch();
 
 	const renderSinglePitch = (p, stringIndex) => {
@@ -44,6 +49,7 @@ export default function TuningPanel() {
 
 	const renderLeft = useMemo(() => {
 		console.log("render left");
+		console.log(pitchList);
 		return (
 			<div className={classnames(style.leftList, style.pitchList)}>
 				{pitchList.slice(0, 3).map((p, idx) => {
@@ -67,18 +73,28 @@ export default function TuningPanel() {
 	}, [pitchList, activeStringIndex]);
 
 	return (
-		<div className={style.tuningPanel}>
-			<Dial
-				pitchList={pitchList}
-				pitchValue={pitchValue}
-				activeStringIndex={activeStringIndex}
-			/>
-			<div className={style.mainbox}>
-				<div className={style.left}>{renderLeft}</div>
-				<Guitar />
-				<div className={style.right}>{renderRight}</div>
-				<div className={style.frequency}>{pitchValue} Hz</div>
-			</div>
+		<div className={style.tuningWrapper}>
+			{isSetting ? (
+				isEditing ? (
+					<EditTuner />
+				) : (
+					<TunerIntro />
+				)
+			) : (
+				<div className={style.tuningPanel}>
+					<Dial
+						pitchList={pitchList}
+						pitchValue={pitchValue}
+						activeStringIndex={activeStringIndex}
+					/>
+					<div className={style.mainbox}>
+						<div className={style.left}>{renderLeft}</div>
+						<Guitar />
+						<div className={style.right}>{renderRight}</div>
+						<div className={style.frequency}>{pitchValue} Hz</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }

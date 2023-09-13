@@ -19,9 +19,9 @@ export default function Tuner() {
 			interval = setInterval(() => {
 				newPitch = stablePitch(getPitch());
 				dispatch(updatePitchValue({ pitchValue: newPitch }));
-			}, 80);
+			}, 1000);
 		}
-		initGetPitch();
+		// initGetPitch();
 		return () => {
 			clearInterval(interval);
 		};

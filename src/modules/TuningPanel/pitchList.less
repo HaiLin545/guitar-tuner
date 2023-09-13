@@ -1,0 +1,28 @@
+.pitchList {
+	height: 84%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+@pitch-size: 70px;
+.singlePitch {
+	width: @pitch-size;
+	height: @pitch-size;
+	text-align: center;
+	line-height: @pitch-size;
+	border-radius: @pitch-size;
+	background-color: pink;
+	margin: 40px 0;
+	cursor: pointer;
+	&.tuning {
+		background-color: orange;
+	}
+	&.finished {
+		background-color: greenyellow;
+	}
+}
+
+.leftList {
+	flex-direction: column-reverse;
+}

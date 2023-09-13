@@ -1,14 +1,18 @@
 import allPitch from "../data/allPitch";
 
+export const getModeByIndex = (index) => {
+	return allPitch.filter((i) => i.index == index)[0];
+};
+
 export const getPitchListWithState = (pitchMode) => {
 	return pitchMode.pitchIndexList.map((idx) => ({
-		...allPitch[idx],
+		...getModeByIndex(idx),
 		frequency: fixed(allPitch[idx].frequency, 1),
 		state: 0,
 	}));
 };
 export const transformIndexToPitch = (mode) => {
-	return mode.pitchIndexList.map((idx) => allPitch[idx]);
+	return mode.pitchIndexList.map((idx) => getModeByIndex(idx));
 };
 
 export const stablePitch = (function () {
