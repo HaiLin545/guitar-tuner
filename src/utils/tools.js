@@ -5,11 +5,14 @@ export const getModeByIndex = (index) => {
 };
 
 export const getPitchListWithState = (pitchMode) => {
-	return pitchMode.pitchIndexList.map((idx) => ({
-		...getModeByIndex(idx),
-		frequency: fixed(allPitch[idx].frequency, 1),
-		state: 0,
-	}));
+	return pitchMode.pitchIndexList.map((idx) => {
+		const mode = getModeByIndex(idx);
+		return {
+			...mode,
+			frequency: fixed(mode.frequency, 1),
+			state: 0,
+		};
+	});
 };
 export const transformIndexToPitch = (mode) => {
 	return mode.pitchIndexList.map((idx) => getModeByIndex(idx));

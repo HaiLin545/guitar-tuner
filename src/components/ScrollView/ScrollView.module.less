@@ -1,21 +1,21 @@
 .scrollView {
-	margin: 10px 0;
 	width: 100%;
-	box-sizing: border-box;
+	background-color: blue;
 	position: relative;
 }
 
 .pitchList {
+	width: 100%;
 	display: flex;
-	overflow-x: auto;
+	overflow-x: scroll;
 	.pitchItem {
-		cursor: pointer;
 		border: 1px solid black;
 		padding: 20px;
 		background-color: aquamarine;
+		width: 14.28%;
 		flex-shrink: 0;
 		text-align: center;
-		width: 14.28%;
+		cursor: pointer;
 		.frequency {
 			font-size: 20px;
 		}

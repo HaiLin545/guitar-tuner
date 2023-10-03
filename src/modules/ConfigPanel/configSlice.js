@@ -16,12 +16,29 @@ export const counterSlice = createSlice({
 			console.log(action);
 			state.currentModeIndex = action.payload.modeIndex;
 		},
-		deleteMode: (state, action) => {},
+		deleteMode: (state, action) => {
+			const index = state.editingModeIndex;
+			state.pitchModeList = state.pitchModeList.filter((mode, idx) => {
+				return idx != state.editingModeIndex;
+			});
+			state.editingModeIndex = Math.max(0, index - 1);
+		},
 		updateMode: (state, action) => {
 			state.pitchModeList[state.editingModeIndex] =
 				action.payload.newMode;
 		},
-		addMode: (state, action) => {},
+		updateModeList: (state, action) => {
+			state.pitchModeList = action.payload.pitchModeList;
+		},
+		addMode: (state, action) => {
+			state.pitchModeList.push({
+				...defaultPitchMode[0],
+				id: state.pitchModeList.length,
+				modeName: "未命名调弦组",
+			});
+			state.isEditing = true;
+			state.editingModeIndex = state.pitchModeList.length - 1;
+		},
 		switchToSetting: (state, action) => {
 			console.log("switch to setting");
 			state.isSetting = true;
@@ -64,6 +81,7 @@ export const {
 	exitSetting,
 	exitEditing,
 	updateEditingModeIndex,
+	updateModeList,
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

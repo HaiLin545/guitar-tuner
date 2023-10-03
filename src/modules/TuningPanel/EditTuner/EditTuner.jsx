@@ -1,8 +1,13 @@
 import React, { useState, useMemo } from "react";
 import style from "./EditTuner.module.less";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import { Dialog, DialogActions, DialogTitle } from "@mui/material";
+import { DeleteOutlined } from "@mui/icons-material";
 import {
+	deleteMode,
 	exitEditing,
+	setEditingModeIndex,
 	setEditingPitchMode,
 	updateMode,
 } from "../../ConfigPanel/configSlice";
@@ -16,9 +21,11 @@ import { transformIndexToPitch } from "../../../utils/tools";
 export default function EditTuner() {
 	const dispatch = useDispatch();
 	const mode = useSelector(setEditingPitchMode);
+	const editingModeIndex = useSelector(setEditingModeIndex);
 	const [editingMode, setEditingMode] = useState(mode);
 	const [modeList, setModeList] = useState(transformIndexToPitch(mode));
 	const [currentPitchIndex, setCurrentPitchIndex] = useState(0);
+	const [dialogOpen, setDialogOpen] = useState(false);
 
 	useEffect(() => {
 		setEditingMode(mode);
@@ -62,6 +69,21 @@ export default function EditTuner() {
 			...editingMode,
 			modeName: e.target.value,
 		});
+	}
+
+	function onClickDeleteBtn() {
+		setDialogOpen(true);
+		// dispatch(deleteMode());
+	}
+
+	function onConfirmDelete() {
+		dispatch(deleteMode());
+		setDialogOpen(false);
+	}
+
+	function onCancleDelete() {
+		console.log("on cancle delete");
+		setDialogOpen(false);
 	}
 
 	const renderSinglePitch = (p, stringIndex) => {
@@ -117,11 +139,28 @@ export default function EditTuner() {
 				initIndex={modeList[currentPitchIndex].index}
 				onChange={onPitchChange}
 			></ScrollView>
+			<div className={style.indexPointer}>
+				<div className={style.triangle}></div>
+			</div>
 			<div className={style.guitarWrapper}>
 				<div className={style.left}>{renderLeft}</div>
 				<Guitar />
 				<div className={style.right}>{renderRight}</div>
 			</div>
+			{editingModeIndex > 0 && (
+				<div className={style.deleteBtn}>
+					<IconButton size="large" onClick={onClickDeleteBtn}>
+						<DeleteOutlined />
+					</IconButton>
+				</div>
+			)}
+			<Dialog open={dialogOpen} onClose={() => {}}>
+				<DialogTitle>{`确定要删除-"${mode.modeName}"?`}</DialogTitle>
+				<DialogActions>
+					<Button onClick={onCancleDelete}>取消</Button>
+					<Button onClick={onConfirmDelete}>确定</Button>
+				</DialogActions>
+			</Dialog>
 		</div>
 	);
 }

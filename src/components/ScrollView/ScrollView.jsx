@@ -4,6 +4,7 @@ import allPitch from "../../data/allPitch";
 import IconButton from "@mui/material/IconButton";
 import ArrowBack from "@mui/icons-material/ArrowBack";
 import ArrowForward from "@mui/icons-material/ArrowForward";
+import { fixed } from "../../utils/tools";
 
 const startIndex = allPitch[0].index;
 
@@ -16,8 +17,13 @@ export function ScrollView({ initIndex, onChange }) {
 		scrollToIndex(initIndex - 24);
 	}, [initIndex]);
 
+	useEffect(() => {
+		window.addEventListener("resize", () => {
+			scrollToIndex(currentIndex);
+		});
+	}, []);
+
 	const scrollToIndex = (index) => {
-		console.log("scroll to index", index);
 		ListRef.current.scroll({
 			left: index * ItemRef.current.getBoundingClientRect().width,
 			behavior: "smooth",
@@ -46,6 +52,7 @@ export function ScrollView({ initIndex, onChange }) {
 				<div className={style.pitchItem}></div>
 				<div className={style.pitchItem}></div>
 				{allPitch.map((p, index) => {
+					let freq = fixed(p.frequency, 1);
 					return (
 						<div
 							key={p.index}
@@ -53,7 +60,7 @@ export function ScrollView({ initIndex, onChange }) {
 							onClick={() => scrollToIndex(index)}
 						>
 							<div className={style.frequency}>
-								{p.frequency}
+								{freq}
 								<br />
 								Hz
 							</div>

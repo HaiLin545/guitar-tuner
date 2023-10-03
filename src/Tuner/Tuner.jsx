@@ -19,13 +19,13 @@ export default function Tuner() {
 			interval = setInterval(() => {
 				newPitch = stablePitch(getPitch());
 				dispatch(updatePitchValue({ pitchValue: newPitch }));
-			}, 1000);
+			}, 100);
 		}
-		// initGetPitch();
+		initGetPitch();
 		return () => {
 			clearInterval(interval);
 		};
-	});
+	}, []);
 
 	return (
 		<div className={style.tuner}>

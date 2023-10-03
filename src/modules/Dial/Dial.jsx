@@ -56,8 +56,10 @@ export default function Dial(props) {
 						<div className={style.frequency}>
 							{targetPitch.frequency} Hz
 						</div>
-						<div>{targetPitch.pitch}</div>
-						{/* <sub>{targetPitch.number}</sub> */}
+						<div>
+							{targetPitch.pitch}
+							<sub>{targetPitch.number}</sub>
+						</div>
 					</span>
 					<Needles />
 				</div>

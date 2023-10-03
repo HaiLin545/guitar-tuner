@@ -1,33 +1,36 @@
 .configPanel {
 	border-right: 2px solid white;
 	padding: 5px;
-	width: 300px;
+	width: 360px;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 }
 
+@setting-header-height: 100px;
+
 .appName {
-	padding: 20px 0;
+	height: @setting-header-height;
 	font-size: 30px;
+	line-height: @setting-header-height;
 	text-align: center;
 	letter-spacing: 4px;
 }
 
 .settingHeader {
-	padding: 10px 0;
+	height: @setting-header-height;
 	position: relative;
 	.backIcon {
 		z-index: 10;
 		margin-left: 5px;
 		color: black;
-	}
-	.settingName {
 		position: absolute;
 		top: 50%;
 		left: 0;
-		right: 0;
 		transform: translateY(-50%);
+	}
+	.settingName {
+		line-height: @setting-header-height;
 		text-align: center;
 		font-size: 20px;
 		font-weight: bold;
@@ -68,9 +71,23 @@
 		align-items: center;
 		justify-content: center;
 
-		.settingBtns {
-			display: flex;
-			flex-direction: column;
+		&.moving {
+			.settingBtn,
+			.dragBtn {
+				opacity: 0;
+			}
+
+			.pitchMode {
+				background: transparent;
+				color: transparent;
+				outline: 2px dashed black;
+				.modeName {
+					border: none;
+				}
+			}
+		}
+		&.active {
+			background-color: blue;
 		}
 	}
 
@@ -120,4 +137,9 @@
 	.addModeBtn {
 		color: black;
 	}
+}
+
+.dragBtn {
+	cursor: grab;
+	margin-right: 10px;
 }

@@ -2,13 +2,17 @@
 
 .EditTuner {
 	height: 100%;
+	width: 100%;
 	background-color: #ccc;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	align-items: center;
+	position: relative;
 }
 
 .btns {
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
 }
@@ -25,4 +29,22 @@
 	width: 100%;
 	display: flex;
 	justify-content: center;
+}
+
+.indexPointer {
+	flex: 1;
+
+	.triangle {
+		width: 0;
+		border: 20px solid;
+		// transform: translateY(-50%);
+		border-color: transparent;
+		border-bottom-color: blue;
+	}
+}
+
+.deleteBtn {
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
 }

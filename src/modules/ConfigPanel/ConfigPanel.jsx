@@ -19,11 +19,13 @@ import {
 	setIsEditing,
 	setEditingModeIndex,
 	addMode,
+	updateModeList,
 } from "./configSlice";
 import { updatePitchList } from "../TuningPanel/tunerSlice";
 import { useSelector, useDispatch } from "react-redux";
-import React, { useMemo } from "react";
+import React, { useState } from "react";
 import classNames from "classnames";
+import { useRef } from "react";
 
 const appName = "Tuner";
 
@@ -34,6 +36,8 @@ export default function ConfigPanel() {
 	const isSetting = useSelector(setIsSetting);
 	const isEditing = useSelector(setIsEditing);
 	const dispatch = useDispatch();
+	const groupRef = useRef(0);
+	const [movingNode, setMovingNode] = useState(null);
 
 	const isActive = (index) => {
 		if (!isSetting) {
@@ -46,14 +50,13 @@ export default function ConfigPanel() {
 	};
 
 	const handleClickMode = (idx) => {
-		console.log("handle click mode", idx);
 		if (!isSetting) {
 			if (idx !== currentModeIndex) {
 				dispatch(changeMode({ modeIndex: idx }));
 				dispatch(updatePitchList({ pitchList: pitchModeList[idx] }));
 			}
 		} else {
-			if (idx !== editingModeIndex) {
+			if (!isEditing || idx !== editingModeIndex) {
 				handleClickEditIcon(idx);
 			}
 		}
@@ -87,25 +90,67 @@ export default function ConfigPanel() {
 		dispatch(updateEditingModeIndex({ modeIndex: index }));
 	};
 
+	const handleDragStart = (e) => {
+		const dragItem = e.target;
+		setMovingNode(dragItem);
+		setTimeout(() => {
+			dragItem.classList.add(style.moving);
+		}, 0);
+	};
+
+	const handleDragEnd = (e) => {
+		e.preventDefault();
+		e.target.classList.remove(style.moving);
+	};
+
+	const handleDragEnter = (e) => {
+		e.preventDefault();
+		if (e.target == movingNode || e.target.parentNode != groupRef.current) {
+			return;
+		}
+		const listDOM = Array.from(groupRef.current.children);
+		const movingIndex = listDOM.indexOf(movingNode);
+		const targetIndex = listDOM.indexOf(e.target);
+		const newPitchModeList = pitchModeList.slice(0);
+		newPitchModeList.splice(movingIndex, 1);
+		newPitchModeList.splice(targetIndex, 0, pitchModeList[movingIndex]);
+		dispatch(updateModeList({ pitchModeList: newPitchModeList }));
+		if (editingModeIndex == movingIndex) {
+			dispatch(updateEditingModeIndex({ modeIndex: targetIndex }));
+		}
+		if (editingModeIndex == targetIndex) {
+			dispatch(updateEditingModeIndex({ modeIndex: movingIndex }));
+		}
+	};
+
 	const renderPitchModeGroup = () => {
 		console.log("render pitch mode group");
 		return (
-			<div className={style.pitchModeGroup}>
+			<div
+				className={style.pitchModeGroup}
+				onDragStart={handleDragStart}
+				onDragEnter={handleDragEnter}
+				onDragEnd={handleDragEnd}
+				ref={groupRef}
+			>
 				{pitchModeList.map((p, idx) => {
 					return (
-						<div key={p.id} className={style.pitchModeItem}>
+						<div
+							key={p.id}
+							className={style.pitchModeItem}
+							draggable={isSetting}
+						>
+							{isSetting && (
+								<MenuIcon className={style.dragBtn} />
+							)}
 							{renderMode(p, idx)}
 							{isSetting && (
-								<div className={style.settingBtns}>
-									<IconButton>
-										<MenuIcon />
-									</IconButton>
-									<IconButton
-										onClick={() => handleClickEditIcon(idx)}
-									>
-										<EditIcon />
-									</IconButton>
-								</div>
+								<IconButton
+									className={style.settingBtn}
+									onClick={() => handleClickEditIcon(idx)}
+								>
+									<EditIcon />
+								</IconButton>
 							)}
 						</div>
 					);
@@ -118,11 +163,12 @@ export default function ConfigPanel() {
 	}
 
 	function handleAddMode() {
-		dispatch(switchToEditing());
+		dispatch(addMode());
 	}
 
 	return (
 		<div className={style.configPanel}>
+			{}
 			{isSetting ? (
 				<div className={style.settingHeader}>
 					<IconButton
