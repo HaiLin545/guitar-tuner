@@ -7,6 +7,7 @@ import ArrowForward from "@mui/icons-material/ArrowForward";
 import { fixed } from "../../utils/tools";
 
 const startIndex = allPitch[0].index;
+let scrollTimer = null;
 
 export function ScrollView({ initIndex, onChange }) {
 	const ListRef = useRef(null);
@@ -40,6 +41,16 @@ export function ScrollView({ initIndex, onChange }) {
 		scrollToIndex(currentIndex + 1);
 	};
 
+	const handleOnScroll = () => {
+		clearTimeout(scrollTimer);
+		scrollTimer = setTimeout(() => {
+			const left = ListRef.current.scrollLeft;
+			const width = ItemRef.current.getBoundingClientRect().width;
+			const index = Math.round(left / width);
+			scrollToIndex(index);
+		}, 100);
+	};
+
 	return (
 		<div className={style.scrollView}>
 			<div className={style.backIcon} onClick={handleScrollBack}>
@@ -47,7 +58,11 @@ export function ScrollView({ initIndex, onChange }) {
 					<ArrowBack />
 				</IconButton>
 			</div>
-			<div className={style.pitchList} ref={ListRef}>
+			<div
+				className={style.pitchList}
+				ref={ListRef}
+				onScroll={handleOnScroll}
+			>
 				<div className={style.pitchItem} ref={ItemRef}></div>
 				<div className={style.pitchItem}></div>
 				<div className={style.pitchItem}></div>

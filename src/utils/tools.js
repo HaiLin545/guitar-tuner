@@ -41,4 +41,4 @@ export const stablePitch = (function () {
 
 export const fixed = (num, bit) => Number(num.toFixed(bit));
 
-export const sigmoid = (t) => 1 / (1 + Math.exp(-t / 66));
+export const sigmoid = (t) => 1 / (1 + Math.exp(-t / 24));
