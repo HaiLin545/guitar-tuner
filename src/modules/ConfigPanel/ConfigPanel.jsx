@@ -124,7 +124,6 @@ export default function ConfigPanel() {
 	};
 
 	const renderPitchModeGroup = () => {
-		console.log("render pitch mode group");
 		return (
 			<div
 				className={style.pitchModeGroup}
@@ -134,6 +133,7 @@ export default function ConfigPanel() {
 				ref={groupRef}
 			>
 				{pitchModeList.map((p, idx) => {
+					if (isSetting && idx == 0) return <div key={p.id}></div>;
 					return (
 						<div
 							key={p.id}
@@ -158,9 +158,6 @@ export default function ConfigPanel() {
 			</div>
 		);
 	};
-	function handleClickSetting() {
-		console.log("handle click setting");
-	}
 
 	function handleAddMode() {
 		dispatch(addMode());
@@ -168,7 +165,6 @@ export default function ConfigPanel() {
 
 	return (
 		<div className={style.configPanel}>
-			{}
 			{isSetting ? (
 				<div className={style.settingHeader}>
 					<IconButton
@@ -185,10 +181,10 @@ export default function ConfigPanel() {
 			)}
 			<Divider className={style.divider} />
 			<div className={style.configList}>
-				<div className={style.autoDetect}>
+				{/* <div className={style.autoDetect}>
 					<div>自动识别琴弦</div>
 					<Switch />
-				</div>
+				</div> */}
 				{renderPitchModeGroup()}
 				<div className={style.btnWrapper}>
 					{isSetting ? (

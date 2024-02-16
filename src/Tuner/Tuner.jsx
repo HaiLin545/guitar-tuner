@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUserMedia } from "../utils/getPitch";
 import { updatePitchValue } from "../modules/TuningPanel/tunerSlice";
-import { stablePitch } from "../utils/tools";
 
 export default function Tuner() {
 	const dispatch = useDispatch();
@@ -17,8 +16,11 @@ export default function Tuner() {
 			const getPitch = await getUserMedia();
 			let newPitch = 0;
 			interval = setInterval(() => {
-				newPitch = stablePitch(getPitch());
-				dispatch(updatePitchValue({ pitchValue: newPitch }));
+				newPitch = getPitch();
+				console.log("new pitch = ", newPitch);
+				if (newPitch > 0) {
+					dispatch(updatePitchValue({ pitchValue: newPitch }));
+				}
 			}, 100);
 		}
 		initGetPitch();

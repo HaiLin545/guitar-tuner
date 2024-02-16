@@ -21,11 +21,7 @@ export async function getUserMedia() {
 
 	const getPitch = () => {
 		analyser.getFloatTimeDomainData(buffer);
-		console.log("getPitch");
-		// const start = Date.now();
 		let pitch = detectPitch(buffer) ?? 0;
-		// const end = Date.now();
-		// console.log("pitch = ", pitch, "get pitch time: ", end - start, "ms");
 		pitch = fixed(pitch, 1);
 		return pitch;
 	};

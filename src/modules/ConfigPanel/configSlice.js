@@ -2,6 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import defaultPitchMode from "../../data/defaultPitchMode";
 import { transformIndexToPitch } from "../../utils/tools";
 
+function updateLocalStorage(key, value) {
+	localStorage.setItem(key, value);
+}
+
 export const counterSlice = createSlice({
 	name: "config",
 	initialState: {
@@ -22,13 +26,25 @@ export const counterSlice = createSlice({
 				return idx != state.editingModeIndex;
 			});
 			state.editingModeIndex = Math.max(0, index - 1);
+			updateLocalStorage(
+				"pitch_mode_list",
+				JSON.stringify(state.pitchModeList),
+			);
 		},
 		updateMode: (state, action) => {
 			state.pitchModeList[state.editingModeIndex] =
 				action.payload.newMode;
+			updateLocalStorage(
+				"pitch_mode_list",
+				JSON.stringify(state.pitchModeList),
+			);
 		},
 		updateModeList: (state, action) => {
 			state.pitchModeList = action.payload.pitchModeList;
+			updateLocalStorage(
+				"pitch_mode_list",
+				JSON.stringify(state.pitchModeList),
+			);
 		},
 		addMode: (state, action) => {
 			state.pitchModeList.push({
@@ -38,6 +54,10 @@ export const counterSlice = createSlice({
 			});
 			state.isEditing = true;
 			state.editingModeIndex = state.pitchModeList.length - 1;
+			updateLocalStorage(
+				"pitch_mode_list",
+				JSON.stringify(state.pitchModeList),
+			);
 		},
 		switchToSetting: (state, action) => {
 			console.log("switch to setting");

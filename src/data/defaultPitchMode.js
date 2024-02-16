@@ -1,4 +1,4 @@
-const defaultPitchMode = [
+let defaultValue = [
 	{
 		id: 0,
 		modeName: "标准调弦",
@@ -21,5 +21,12 @@ const defaultPitchMode = [
 		remark: "",
 	},
 ];
+
+const defaultPitchMode = (function getDefault() {
+	const storage = localStorage.getItem("pitch_mode_list");
+	const value = storage ? JSON.parse(storage) : defaultValue;
+	console.log("load pitch list", value);
+	return value;
+})();
 
 export default defaultPitchMode;

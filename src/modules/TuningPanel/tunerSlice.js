@@ -16,7 +16,6 @@ export const counterSlice = createSlice({
 			state.pitchList = getPitchListWithState(action.payload.pitchList);
 		},
 		updatePitchValue: (state, action) => {
-			console.log("update pitch value", action);
 			state.pitchValue = action.payload.pitchValue;
 		},
 		updateStringState: (state, action) => {

@@ -8,7 +8,7 @@ const TunerIntro = memo(function renderTunerIntro() {
 		<div className={style.tunerIntro}>
 			<div className={style.title}>Tuner</div>
 			<div className={style.discription}>
-				这是一个专为指弹玩家设计的吉他调音器。
+				这是一个为指弹玩家设计的吉他调音器。
 			</div>
 			<ul className={style.options}>
 				<li>
